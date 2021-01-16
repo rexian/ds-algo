@@ -31,64 +31,66 @@ public class CheckIfConnectedGraph {
 		System.out.println("Is connected graph >> " + g.isConnectedGraph());
 
 	}
-}
+	
+	private static class ConnectedGraph{
+		List<List<Integer>> graph;
+		boolean[] visited;
 
+		public ConnectedGraph(int nodes) {
+			graph = new ArrayList<>();
+			visited = new boolean[nodes];
 
-class ConnectedGraph{
-	List<List<Integer>> graph;
-	boolean[] visited;
-
-	public ConnectedGraph(int nodes) {
-		graph = new ArrayList<>();
-		visited = new boolean[nodes];
-
-		for(int i = 0; i < nodes; i++) {
-			graph.add(i, new ArrayList<>());
-		}
-	}
-
-	public void addEdge(int a, int b) {
-		graph.get(a).add(b);
-		graph.get(b).add(a);
-	}
-
-	/**
-	 * Check if Graph is connected
-	 * @return visited status
-	 */
-	public boolean isConnectedGraph() {
-		
-		// Traverse through all visited status, 
-		// and look for unvisited/disconnected node
-		for(boolean visitedStatus: visited) {
-			if(!visitedStatus) {
-				return visitedStatus;
+			for(int i = 0; i < nodes; i++) {
+				graph.add(i, new ArrayList<>());
 			}
 		}
-		
-		return true;
-	}
-	
-	/**
-	 * Depth first search of undirected graph
-	 * @param start index
-	 */
-	public void dfs(int start) {
 
-		Stack<Integer> s = new Stack<>();
-		s.push(start);
-		visited[start] = true;
+		public void addEdge(int a, int b) {
+			graph.get(a).add(b);
+			graph.get(b).add(a);
+		}
 
-		while(!s.isEmpty()) {
-			Integer current = s.pop();
-			System.out.print(current + " ");
+		/**
+		 * Check if Graph is connected
+		 * @return visited status
+		 */
+		public boolean isConnectedGraph() {
 			
-			for(Integer neighbor: graph.get(current)) {
-				if(!visited[neighbor]) {
-					s.push(neighbor);
-					visited[neighbor] = true;
+			// Traverse through all visited status, 
+			// and look for unvisited/disconnected node
+			for(boolean visitedStatus: visited) {
+				if(!visitedStatus) {
+					return visitedStatus;
+				}
+			}
+			
+			return true;
+		}
+		
+		/**
+		 * Depth first search of undirected graph
+		 * @param start index
+		 */
+		public void dfs(int start) {
+
+			Stack<Integer> s = new Stack<>();
+			s.push(start);
+			visited[start] = true;
+
+			while(!s.isEmpty()) {
+				Integer current = s.pop();
+				System.out.print(current + " ");
+				
+				for(Integer neighbor: graph.get(current)) {
+					if(!visited[neighbor]) {
+						s.push(neighbor);
+						visited[neighbor] = true;
+					}
 				}
 			}
 		}
 	}
+
 }
+
+
