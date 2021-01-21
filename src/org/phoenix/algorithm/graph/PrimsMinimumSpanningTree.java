@@ -14,7 +14,7 @@ public class PrimsMinimumSpanningTree {
 	static class Edge{
 		private int targetNode;
 		private int distanceFromNode;
-		
+
 		public Edge(int targetNode, int distanceFromNode) {
 			this.targetNode = targetNode;
 			this.distanceFromNode = distanceFromNode;
@@ -57,14 +57,14 @@ public class PrimsMinimumSpanningTree {
 			graph.get(source).add(new Edge(target, distance));
 			graph.get(target).add(new Edge(source, distance));
 		}
-		
+
 		/**
 		 * 
 		 * @return minimum cost of traversal
 		 */
 		private int minimumCost() {
 			int minCost = 0;
-			
+
 			for(int i = 0; i < nodes; i++) {
 				if(!visited[i]) {
 					minCost += minimumSpanningTree(i);
@@ -78,7 +78,7 @@ public class PrimsMinimumSpanningTree {
 		 * @return if cyclic graph
 		 */
 		public int minimumSpanningTree(int source) {
-			
+
 			PriorityQueue<Edge> minHeap = new PriorityQueue<>((e1, e2) -> e1.distanceFromNode - e2.distanceFromNode);
 			visited[source] = true;
 			List<Edge> neighbors = graph.get(source);
@@ -86,7 +86,7 @@ public class PrimsMinimumSpanningTree {
 				minHeap.add(e);
 			}
 			int minCost = 0;
-			
+
 			while(!minHeap.isEmpty()) {
 				Edge e = minHeap.poll();
 				if(visited[e.targetNode]) {
@@ -94,7 +94,7 @@ public class PrimsMinimumSpanningTree {
 				}
 				visited[e.targetNode] = true;
 				minCost += e.distanceFromNode;
-				
+
 				for(Edge edge: graph.get(e.targetNode)) {
 					if(!visited[edge.targetNode]) {
 						minHeap.add(edge);
